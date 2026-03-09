@@ -27,7 +27,10 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      // Trigger white background when scrolled past most of the Hero section
+      setIsScrolled(window.scrollY > window.innerHeight * 0.8);
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -37,48 +40,48 @@ const Navbar = () => {
     { name: 'Products', href: '#products' },
     { name: 'About Us', href: '#about' },
     { name: 'Distribution', href: '#distribution' },
-    { name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-3' : 'bg-transparent py-5'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex items-center gap-2">
-          <div className="bg-emerald-600 p-2 rounded-lg">
-            <ShoppingBasket className="text-white w-6 h-6" />
-          </div>
-            <span className={`text-2xl font-bold tracking-tight ${isScrolled ? 'text-slate-900' : 'text-white'}`}>
-            <span className="text-emerald-500">Afja</span>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white py-3' : 'bg-transparent py-6'}`}>
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 items-center">
+        {/* Left: Brand Name */}
+        <div className="flex justify-start">
+          <span className={`text-xl font-bold tracking-tight transition-colors duration-300 ${isScrolled ? 'text-slate-900' : 'text-white'}`}>
+            Afja General Trading
           </span>
         </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        {/* Center: Desktop Nav */}
+        <div className="hidden md:flex justify-center items-center gap-8">
           {navLinks.map((link) => (
             <a 
               key={link.name} 
               href={link.href}
-              className={`text-sm font-medium transition-colors hover:text-emerald-500 ${isScrolled ? 'text-slate-600' : 'text-white/90'}`}
+              className={`text-sm font-semibold transition-all duration-300 hover:text-emerald-500 whitespace-nowrap ${isScrolled ? 'text-slate-600' : 'text-white/90'}`}
             >
               {link.name}
             </a>
           ))}
-          <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-full text-sm font-semibold transition-all shadow-lg shadow-emerald-600/20">
-            Partner With Us
-          </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button 
-          className="md:hidden p-2"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? (
-            <X className={isScrolled ? 'text-slate-900' : 'text-white'} />
-          ) : (
-            <Menu className={isScrolled ? 'text-slate-900' : 'text-white'} />
-          )}
-        </button>
+        {/* Right: CTA & Mobile Toggle */}
+        <div className="flex justify-end items-center gap-4">
+          <button className="hidden md:block bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-emerald-600/20 active:scale-95">
+            Contact
+          </button>
+          
+          <button 
+            className="md:hidden p-2 transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? (
+              <X className={isScrolled ? 'text-slate-900' : 'text-white'} />
+            ) : (
+              <Menu className={isScrolled ? 'text-slate-900' : 'text-white'} />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -88,20 +91,20 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-white shadow-xl py-6 px-6 flex flex-col gap-4 md:hidden"
+            className="absolute top-full left-0 w-full bg-white shadow-2xl py-8 px-6 flex flex-col gap-5 md:hidden"
           >
             {navLinks.map((link) => (
               <a 
                 key={link.name} 
                 href={link.href}
-                className="text-lg font-medium text-slate-900 border-b border-slate-100 pb-2"
+                className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
               </a>
             ))}
-            <button className="bg-emerald-600 text-white py-3 rounded-xl font-semibold mt-2">
-              Partner With Us
+            <button className="bg-emerald-600 text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-emerald-600/20 mt-2">
+              Contact
             </button>
           </motion.div>
         )}
@@ -111,70 +114,73 @@ const Navbar = () => {
 };
 
 const Hero = () => {
+  const [currentBg, setCurrentBg] = useState(0);
+  const bgImages = [
+    "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1920", // Retail/Grocery
+    "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&q=80&w=1920", // Modern Warehouse
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=1920", // Logistics
+    "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&q=80&w=1920"  // Multi-brand Consumer Products
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentBg((prev) => (prev + 1) % bgImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section className="relative h-screen flex items-center overflow-hidden bg-slate-900">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <Image 
-          src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1920" 
-          alt="FMCG Distribution" 
-          fill
-          className="object-cover opacity-40 scale-105 animate-slow-zoom"
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-linear-to-r from-slate-900 via-slate-900/80 to-transparent"></div>
+    <section className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+      {/* Background Carousel */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <AnimatePresence initial={false}>
+          <motion.div
+            key={currentBg}
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ 
+              opacity: { duration: 1.5, ease: "easeInOut" },
+              scale: { duration: 6, ease: "linear" } 
+            }}
+            className="absolute inset-0"
+          >
+            <Image 
+              src={bgImages[currentBg]} 
+              alt="Afja Distribution Background" 
+              fill
+              className="object-cover opacity-40"
+              referrerPolicy="no-referrer"
+              priority
+            />
+          </motion.div>
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-brightness-[0.7]"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-slate-900/60 via-transparent to-slate-900"></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6 border border-emerald-500/30">
+          <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-bold uppercase tracking-widest mb-6 border border-emerald-500/30">
             Trusted FMCG Partner
           </span>
-          <h1 className="text-5xl md:text-7xl font-bold text-white leading-[1.1] mb-6">
-            Delivering <span className="text-emerald-500">Quality</span> to Every Doorstep.
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.15] mb-6 tracking-tight">
+            Delivering <span className="text-emerald-500">Quality</span> <br />
+            to Every Doorstep.
           </h1>
-          <p className="text-lg text-slate-300 mb-10 max-w-lg leading-relaxed">
-            Afja is a premier FMCG distribution leader, bridging the gap between global brands and local consumers with efficiency and integrity.
+          <p className="text-base md:text-lg text-slate-300 mb-10 max-w-xl mx-auto leading-relaxed">
+            Afja is a premier FMCG distribution leader, bridging the gap between global brands and local consumers with efficiency, integrity, and excellence.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full font-bold transition-all flex items-center gap-2 group">
+          <div className="flex justify-center">
+            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4.5 rounded-full font-bold text-base transition-all flex items-center gap-2 shadow-xl shadow-emerald-500/25 group">
               Explore Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-            <button className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/20 px-8 py-4 rounded-full font-bold transition-all">
-              Our Network
-            </button>
           </div>
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="hidden md:block relative"
-        >
-          <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border border-white/10 aspect-square">
-            <Image 
-              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=800" 
-              alt="Premium Goods" 
-              fill
-              className="object-cover"
-              referrerPolicy="no-referrer"
-            />
-          </div>
-          {/* Floating Stats Card */}
-          <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl z-20 flex items-center gap-4 border border-slate-100">
-            <div className="bg-emerald-100 p-3 rounded-full">
-              <Truck className="text-emerald-600 w-6 h-6" />
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-slate-900">500+</p>
-              <p className="text-xs text-slate-500 font-medium uppercase tracking-wider">Daily Deliveries</p>
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>
@@ -360,8 +366,8 @@ const Footer = () => {
               <div className="bg-emerald-600 p-2 rounded-lg">
                 <ShoppingBasket className="text-white w-5 h-5" />
               </div>
-              <span className="text-xl font-bold text-slate-900">
-                <span className="text-emerald-500">Afja</span>
+              <span className="text-xl font-bold text-slate-900 tracking-tight">
+                Afja General Trading
               </span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed">
@@ -424,52 +430,89 @@ export default function Home() {
       <Categories />
       <Stats />
       
-      {/* About Section */}
-      <section id="about" className="py-24 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center gap-16">
-            <div className="md:w-1/2 relative">
-              <div className="relative z-10 rounded-4xl overflow-hidden shadow-2xl aspect-video">
+      <section id="about" className="py-32 bg-slate-50 relative overflow-hidden">
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-500/5 -skew-x-12 translate-x-1/4"></div>
+        <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 skew-x-12 -translate-x-1/4"></div>
+        
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="flex flex-col lg:flex-row items-center gap-20">
+            {/* Image Side */}
+            <div className="lg:w-1/2 relative group">
+              <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3]">
                 <Image 
-                  src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=800" 
-                  alt="Our Warehouse" 
+                  src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=1200" 
+                  alt="Our State-of-the-Art Warehouse" 
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
+                <div className="absolute inset-0 bg-emerald-900/10 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-0"></div>
               </div>
-              <div className="absolute -top-10 -right-10 w-64 h-64 bg-emerald-100 rounded-full z-0 blur-3xl opacity-60"></div>
-              <div className="absolute -bottom-10 -left-10 w-64 h-64 bg-blue-100 rounded-full z-0 blur-3xl opacity-60"></div>
+              
+              {/* Floating Highlight Card */}
+              <div className="absolute -bottom-8 -right-8 glass p-6 rounded-3xl shadow-xl animate-float z-20 max-w-[200px]">
+                <div className="bg-emerald-500 p-3 rounded-2xl w-fit mb-4 shadow-lg shadow-emerald-500/20">
+                  <ShieldCheck className="text-white w-6 h-6" />
+                </div>
+                <p className="text-2xl font-black text-slate-900 mb-1">20+ Years</p>
+                <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest">Industry Leadership</p>
+              </div>
+              
+              {/* Background Glow */}
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-emerald-500/10 blur-[120px] rounded-full"></div>
             </div>
-            <div className="md:w-1/2">
-              <h2 className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4">Our Story</h2>
-              <h3 className="text-4xl font-bold text-slate-900 mb-6 leading-tight">Decades of Excellence in Distribution</h3>
-              <p className="text-slate-600 mb-6 leading-relaxed">
-                Founded with a vision to streamline the supply chain for essential goods, Afja has grown into a regional powerhouse. We don't just move boxes; we build lasting relationships between brands and the communities they serve.
+
+            {/* Content Side */}
+            <div className="lg:w-1/2">
+              <div className="inline-flex items-center gap-2 py-1.5 px-3.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[10px] font-bold uppercase tracking-widest mb-8">
+                <Users className="w-3.5 h-3.5" />
+                Our Heritage
+              </div>
+              
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-8 tracking-tight">
+                Decades of <span className="text-emerald-500">Excellence</span> <br />
+                in Global Distribution.
+              </h2>
+              
+              <p className="text-base md:text-lg text-slate-600 mb-8 leading-relaxed max-w-xl">
+                Founded with a vision to streamline the supply chain for essential goods, Afja has grown into a regional powerhouse. We don't just move products; we build lasting bridges between world-class brands and the communities they serve.
               </p>
-              <p className="text-slate-600 mb-8 leading-relaxed">
-                Our state-of-the-art logistics network and data-driven approach ensure that products are always where they need to be, exactly when they're needed.
-              </p>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="flex items-start gap-3">
-                  <div className="bg-emerald-100 p-2 rounded-lg mt-1">
-                    <ShieldCheck className="text-emerald-600 w-4 h-4" />
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    </div>
+                    <p className="font-bold text-slate-900">Certified ISO 9001:2015</p>
                   </div>
-                  <div>
-                    <p className="font-bold text-slate-900">Certified Quality</p>
-                    <p className="text-xs text-slate-500">ISO 9001:2015 Standards</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    </div>
+                    <p className="font-bold text-slate-900">Global Sourcing Ethics</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="bg-emerald-100 p-2 rounded-lg mt-1">
-                    <Truck className="text-emerald-600 w-4 h-4" />
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    </div>
+                    <p className="font-bold text-slate-900">24/7 Logistics Network</p>
                   </div>
-                  <div>
-                    <p className="font-bold text-slate-900">Rapid Delivery</p>
-                    <p className="text-xs text-slate-500">24/7 Logistics Support</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                      <div className="w-2 h-2 rounded-full bg-emerald-500"></div>
+                    </div>
+                    <p className="font-bold text-slate-900">Direct Farm-to-Retail</p>
                   </div>
                 </div>
               </div>
+              
+              <button className="bg-slate-900 hover:bg-slate-800 text-white px-10 py-4.5 rounded-full font-bold text-base transition-all shadow-xl shadow-slate-900/10">
+                Read Full Story
+              </button>
             </div>
           </div>
         </div>
