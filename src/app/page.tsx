@@ -11,8 +11,6 @@ import {
   ChevronRight, 
   Menu, 
   X, 
-  Phone, 
-  Mail, 
   MapPin,
   ArrowRight,
   Leaf,
@@ -21,7 +19,9 @@ import {
   Package,
   Boxes,
   Microscope,
-  Award
+  Award,
+  TrendingUp,
+  Globe
 } from 'lucide-react';
 
 // --- Components ---
@@ -74,7 +74,7 @@ const Navbar = () => {
           <button className="hidden md:block bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-emerald-600/20 active:scale-95">
             Contact
           </button>
-          
+
           <button 
             className="md:hidden p-2 transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -284,6 +284,138 @@ const Categories = () => {
   );
 };
 
+const WhyChooseUs = () => {
+  const reasons = [
+    {
+      icon: Truck,
+      title: "Strategic Logistics",
+      subtitle: "Speed & Scale",
+      description: "Optimized delivery routes combined with our state-of-the-art warehousing network ensure your products move at the speed of market demand."
+    },
+    {
+      icon: ShieldCheck,
+      title: "Quality Assurance",
+      subtitle: "Rigorous Standards",
+      description: "We implement international-grade quality control protocols at every touchpoint, from farm sourcing to final shelf placement."
+    },
+    {
+      icon: TrendingUp,
+      title: "Retailer Growth",
+      subtitle: "Partner Success",
+      description: "More than a distributor, we provide data-driven insights and logistical support that empower our retail partners to scale and thrive."
+    },
+    {
+      icon: Globe,
+      title: "Global Reach",
+      subtitle: "World-Class Brands",
+      description: "Our direct links with global manufacturers offer exclusive access to premium FMCG brands, bringing the world's best to your doorstep."
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut" as const
+      }
+    }
+  };
+
+  return (
+    <section className="py-32 bg-slate-900 relative overflow-hidden">
+      {/* Premium Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col lg:flex-row items-end justify-between mb-24 gap-12">
+          <div className="max-w-2xl">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="inline-block py-1.5 px-4 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6 border border-emerald-500/20">
+                The Afja Advantage
+              </span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight leading-[1.1] mb-8">
+                Why Industry Leaders <br />
+                <span className="text-emerald-500">Choose Excellence.</span>
+              </h2>
+            </motion.div>
+          </div>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:w-1/3 text-slate-400 text-lg leading-relaxed border-l border-emerald-500/30 pl-8"
+          >
+            We've refined FMCG distribution into an art form, focusing on reliability, quality, and the success of our partners across the region.
+          </motion.div>
+        </div>
+
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          {reasons.map((reason, idx) => (
+            <motion.div 
+              key={idx}
+              variants={itemVariants}
+              whileHover={{ y: -10 }}
+              className="relative group h-full"
+            >
+              {/* Glassmorphic Card */}
+              <div className="h-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-10 flex flex-col justify-between transition-all duration-500 group-hover:bg-white/10 group-hover:border-emerald-500/30 shadow-2xl">
+                <div>
+                  <div className="w-14 h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-10 group-hover:bg-emerald-500 group-hover:rotate-[10deg] transition-all duration-500">
+                    <reason.icon className="text-emerald-500 w-7 h-7 group-hover:text-white transition-colors duration-500" />
+                  </div>
+                  <span className="text-emerald-500/60 text-[10px] font-bold uppercase tracking-[0.2em] mb-3 block">
+                    {reason.subtitle}
+                  </span>
+                  <h3 className="text-2xl font-bold text-white mb-6 group-hover:text-emerald-400 transition-colors">
+                    {reason.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-8">
+                    {reason.description}
+                  </p>
+                </div>
+                
+                {/* Visual Accent */}
+                <div className="w-8 h-[2px] bg-emerald-500/20 group-hover:w-full transition-all duration-700"></div>
+              </div>
+
+              {/* Glowing Background Effect */}
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500"></div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 const Stats = () => {
   const stats = [
     { icon: Truck, label: "Distribution Hubs", value: "24" },
@@ -311,73 +443,7 @@ const Stats = () => {
   );
 };
 
-const Contact = () => {
-  return (
-    <section id="contact" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
-          <div className="md:w-1/2 p-12 md:p-20">
-            <h2 className="text-4xl font-bold text-white mb-8">Ready to grow your business with us?</h2>
-            <p className="text-slate-400 mb-12 leading-relaxed">
-              Whether you're a manufacturer looking for distribution or a retailer wanting to stock premium products, we're here to help.
-            </p>
-            
-            <div className="space-y-8">
-              <div className="flex items-center gap-6">
-                <div className="bg-emerald-500/20 p-4 rounded-2xl border border-emerald-500/30">
-                  <Phone className="text-emerald-500 w-6 h-6" />
-                </div>
-                <div>
-                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Call Us</p>
-                  <p className="text-white font-bold text-lg">+1 (234) 567-890</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-6">
-                <div className="bg-emerald-500/20 p-4 rounded-2xl border border-emerald-500/30">
-                  <Mail className="text-emerald-500 w-6 h-6" />
-                </div>
-                <div>
-                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mb-1">Email Us</p>
-                  <p className="text-white font-bold text-lg">partners@afja.com</p>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div className="md:w-1/2 bg-white/5 p-12 md:p-20 border-l border-white/10">
-            <form className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-slate-400 text-sm font-medium">Full Name</label>
-                  <input type="text" className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="John Doe" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-slate-400 text-sm font-medium">Business Type</label>
-                  <select className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors appearance-none">
-                    <option className="bg-slate-900">Retailer</option>
-                    <option className="bg-slate-900">Distributor</option>
-                    <option className="bg-slate-900">Manufacturer</option>
-                  </select>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-slate-400 text-sm font-medium">Email Address</label>
-                <input type="email" className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="john@example.com" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-slate-400 text-sm font-medium">Message</label>
-                <textarea rows={4} className="w-full bg-white/10 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="How can we help you?"></textarea>
-              </div>
-              <button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-emerald-600/20">
-                Send Message
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 const Footer = () => {
   return (
@@ -447,6 +513,7 @@ export default function Home() {
       <Hero />
       <Categories />
       <Stats />
+      <WhyChooseUs />
       
       <section id="about" className="py-32 bg-slate-50 relative overflow-hidden">
         {/* Decorative Background Elements */}
@@ -533,7 +600,6 @@ export default function Home() {
         </div>
       </section>
 
-      <Contact />
       <Footer />
     </main>
   );
