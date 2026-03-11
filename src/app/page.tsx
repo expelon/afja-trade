@@ -21,7 +21,16 @@ import {
   Microscope,
   Award,
   TrendingUp,
-  Globe
+  Globe,
+  Building2, 
+  Hexagon, 
+  Triangle, 
+  CircleDot, 
+  Layers, 
+  Focus, 
+  Infinity as InfinityIcon, 
+  Target, 
+  Zap 
 } from 'lucide-react';
 
 // --- Components ---
@@ -185,6 +194,63 @@ const Hero = () => {
             </button>
           </div>
 
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+
+
+const Brands = () => {
+  // Premium brand data with abstract icons
+  const brands = [
+    { name: "Unilever", icon: Leaf },
+    { name: "Procter & Gamble", icon: ShieldCheck },
+    { name: "Nestlé", icon: Coffee },
+    { name: "Kraft Heinz", icon: ShoppingBasket },
+    { name: "Coca-Cola", icon: Globe },
+    { name: "PepsiCo", icon: Zap },
+    { name: "Mars", icon: Package },
+    { name: "Mondelez", icon: Award },
+    { name: "L'Oréal", icon: Sparkles },
+    { name: "Johnson & Johnson", icon: Microscope }
+  ];
+
+  // Duplicate array to ensure the marquee has enough content to loop seamlessly
+  const marqueeItems = [...brands, ...brands];
+
+  return (
+    <section className="py-12 bg-slate-900 border-y border-white/5 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 mb-8 text-center flex items-center justify-center gap-4 opacity-70">
+        <div className="h-[1px] w-12 bg-slate-600"></div>
+        <p className="text-xs font-bold text-slate-400 uppercase tracking-[0.3em]">
+          Our Global Brand Partners
+        </p>
+        <div className="h-[1px] w-12 bg-slate-600"></div>
+      </div>
+
+      <div className="relative flex overflow-hidden py-4">
+        {/* Deep Dark Fade Gradients */}
+        <div className="absolute top-0 left-0 w-40 h-full bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-40 h-full bg-gradient-to-l from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none"></div>
+
+        <motion.div 
+          className="flex w-max items-center"
+          animate={{ x: [0, "-50%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+        >
+          {marqueeItems.map((brand, idx) => (
+            <div 
+              key={idx} 
+              className="flex items-center justify-center mx-12 md:mx-16 group cursor-default transition-all duration-500 flex-shrink-0"
+            >
+              <div className="flex items-center gap-3 text-slate-500 group-hover:text-white transition-colors duration-500 whitespace-nowrap">
+                <brand.icon className="w-8 h-8 group-hover:text-emerald-500 transition-colors duration-500 flex-shrink-0" strokeWidth={1.5} />
+                <span className="text-2xl font-black tracking-tighter uppercase whitespace-nowrap">{brand.name}</span>
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>
@@ -511,6 +577,7 @@ export default function Home() {
     <main className="min-h-screen">
       <Navbar />
       <Hero />
+      <Brands />
       <Categories />
       <Stats />
       <WhyChooseUs />
