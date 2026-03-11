@@ -30,7 +30,8 @@ import {
   Focus, 
   Infinity as InfinityIcon, 
   Target, 
-  Zap 
+  Zap,
+  Quote
 } from 'lucide-react';
 
 // --- Components ---
@@ -41,7 +42,6 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Trigger white background when scrolled past most of the Hero section
       setIsScrolled(window.scrollY > window.innerHeight * 0.8);
     };
     window.addEventListener('scroll', handleScroll);
@@ -129,10 +129,10 @@ const Navbar = () => {
 const Hero = () => {
   const [currentBg, setCurrentBg] = useState(0);
   const bgImages = [
-    "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1920", // Retail/Grocery
-    "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&q=80&w=1920", // Modern Warehouse
-    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=1920", // Logistics
-    "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&q=80&w=1920"  // Multi-brand Consumer Products
+    "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1920",
+    "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?auto=format&fit=crop&q=80&w=1920",
+    "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&q=80&w=1920",
+    "https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&q=80&w=1920"
   ];
 
   useEffect(() => {
@@ -144,7 +144,6 @@ const Hero = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden bg-slate-900">
-      {/* Background Carousel */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <AnimatePresence initial={false}>
           <motion.div
@@ -169,7 +168,7 @@ const Hero = () => {
           </motion.div>
         </AnimatePresence>
         <div className="absolute inset-0 bg-slate-900/40 backdrop-brightness-[0.7]"></div>
-        <div className="absolute inset-0 bg-linear-to-b from-slate-900/60 via-transparent to-slate-900"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-transparent to-slate-900"></div>
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -189,21 +188,17 @@ const Hero = () => {
             Afja is a premier FMCG distribution leader, bridging the gap between global brands and local consumers with efficiency, integrity, and excellence.
           </p>
           <div className="flex justify-center">
-            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4.5 rounded-full font-bold text-base transition-all flex items-center gap-2 shadow-xl shadow-emerald-500/25 group">
+            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-full font-bold text-base transition-all flex items-center gap-2 shadow-xl shadow-emerald-500/25 group">
               Explore Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
-
         </motion.div>
       </div>
     </section>
   );
 };
 
-
-
 const Brands = () => {
-  // Premium brand data with abstract icons
   const brands = [
     { name: "Unilever", icon: Leaf },
     { name: "Procter & Gamble", icon: ShieldCheck },
@@ -217,7 +212,6 @@ const Brands = () => {
     { name: "Johnson & Johnson", icon: Microscope }
   ];
 
-  // Duplicate array to ensure the marquee has enough content to loop seamlessly
   const marqueeItems = [...brands, ...brands];
 
   return (
@@ -231,7 +225,6 @@ const Brands = () => {
       </div>
 
       <div className="relative flex overflow-hidden py-4">
-        {/* Deep Dark Fade Gradients */}
         <div className="absolute top-0 left-0 w-40 h-full bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none"></div>
         <div className="absolute top-0 right-0 w-40 h-full bg-gradient-to-l from-slate-900 via-slate-900/80 to-transparent z-10 pointer-events-none"></div>
 
@@ -270,9 +263,8 @@ const CategoryCard = ({ icon: Icon, title, description, image }: any) => (
         className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
         referrerPolicy="no-referrer"
       />
-      <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       
-      {/* Category Icon Badge */}
       <div className="absolute top-6 left-6 z-10">
         <div className="bg-white/95 backdrop-blur-md w-14 h-14 rounded-xl flex items-center justify-center shadow-xl border border-white/20 group-hover:bg-emerald-600 transition-colors duration-300">
           <Icon className="text-emerald-600 w-7 h-7 group-hover:text-white transition-colors duration-300" />
@@ -282,9 +274,7 @@ const CategoryCard = ({ icon: Icon, title, description, image }: any) => (
     
     <div className="p-10 flex flex-col flex-grow">
       <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight group-hover:text-emerald-600 transition-colors">{title}</h3>
-      <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
-        {description}
-      </p>
+      <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">{description}</p>
       
       <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
         <a href="#" className="text-emerald-600 font-bold text-sm flex items-center gap-2 group/link">
@@ -322,7 +312,6 @@ const Categories = () => {
 
   return (
     <section id="products" className="py-32 bg-white relative overflow-hidden">
-      {/* Subtle Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px]"></div>
       </div>
@@ -382,9 +371,7 @@ const WhyChooseUs = () => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.15
-      }
+      transition: { staggerChildren: 0.15 }
     }
   };
 
@@ -393,16 +380,12 @@ const WhyChooseUs = () => {
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut" as const
-      }
+      transition: { duration: 0.6, ease: "easeOut" as const }
     }
   };
 
   return (
     <section className="py-32 bg-slate-900 relative overflow-hidden">
-      {/* Premium Background Elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse"></div>
         <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px]"></div>
@@ -433,7 +416,7 @@ const WhyChooseUs = () => {
             transition={{ duration: 0.8 }}
             className="lg:w-1/3 text-slate-400 text-lg leading-relaxed border-l border-emerald-500/30 pl-8"
           >
-            We've refined FMCG distribution into an art form, focusing on reliability, quality, and the success of our partners across the region.
+            We&apos;ve refined FMCG distribution into an art form, focusing on reliability, quality, and the success of our partners across the region.
           </motion.div>
         </div>
 
@@ -451,7 +434,6 @@ const WhyChooseUs = () => {
               whileHover={{ y: -10 }}
               className="relative group h-full"
             >
-              {/* Glassmorphic Card */}
               <div className="h-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-10 flex flex-col justify-between transition-all duration-500 group-hover:bg-white/10 group-hover:border-emerald-500/30 shadow-2xl">
                 <div>
                   <div className="w-14 h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-10 group-hover:bg-emerald-500 group-hover:rotate-[10deg] transition-all duration-500">
@@ -467,12 +449,8 @@ const WhyChooseUs = () => {
                     {reason.description}
                   </p>
                 </div>
-                
-                {/* Visual Accent */}
                 <div className="w-8 h-[2px] bg-emerald-500/20 group-hover:w-full transition-all duration-700"></div>
               </div>
-
-              {/* Glowing Background Effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-2xl opacity-0 group-hover:opacity-10 blur-xl transition-opacity duration-500"></div>
             </motion.div>
           ))}
@@ -508,8 +486,6 @@ const Stats = () => {
     </section>
   );
 };
-
-
 
 const Footer = () => {
   return (
@@ -562,11 +538,112 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-slate-200 pt-8 flex flex-col md:row justify-between items-center gap-4">
+        <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-slate-400 text-xs">© 2026 Afja FMCG Distribution. All rights reserved.</p>
         </div>
       </div>
     </footer>
+  );
+};
+
+// --- New Sections ---
+
+const Testimonials = () => {
+  const testimonials = [
+    {
+      quote: "We switched to Afja for our supermarket's FMCG sourcing two years ago and have never looked back. Orders arrive on schedule, products are always fresh, and the variety they offer is unmatched.",
+      author: "Ahmed Al Rashid",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200"
+    },
+    {
+      quote: "Running a convenience store chain means I can't afford stockouts. Afja keeps our shelves full without me having to chase anyone. Their team is always a call away.",
+      author: "Priya Menon",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200"
+    },
+    {
+      quote: "The quality of goods from Afja is consistently top-tier. From personal care to pantry staples, everything I stock in my store comes from them. My customers trust what I sell.",
+      author: "Khalid Nasser",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200"
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-white relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-50 rounded-full blur-3xl opacity-50 -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-16">
+          <span className="inline-block py-1 px-3 rounded-full bg-emerald-500/10 text-emerald-600 text-[10px] font-bold uppercase tracking-widest mb-4 border border-emerald-500/20">
+            Client Testimonials
+          </span>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">
+            What Our Clients Say
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {testimonials.map((testimonial, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="bg-white p-8 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col relative"
+            >
+              <Quote className="text-emerald-100 w-12 h-12 absolute top-6 right-6" />
+              <p className="text-slate-600 text-lg leading-relaxed mb-8 flex-grow relative z-10 italic">
+                &ldquo;{testimonial.quote}&rdquo;
+              </p>
+              <div className="flex items-center gap-4 border-t border-slate-100 pt-6 mt-auto">
+                <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-emerald-100 bg-slate-100">
+                  <Image
+                    src={testimonial.image}
+                    alt={testimonial.author}
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900">{testimonial.author}</h4>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const PartnerCTA = () => {
+  return (
+    <section className="py-24 bg-slate-900 relative overflow-hidden">
+      <div className="absolute inset-0">
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-emerald-900/40 via-slate-900 to-slate-900"></div>
+        <div className="absolute -bottom-1/2 -right-1/4 w-[1000px] h-[1000px] bg-emerald-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+      </div>
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-10 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12 shadow-2xl">
+          <div className="lg:w-1/2">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 leading-[1.15] tracking-tight">
+              Let&apos;s Build Your <span className="text-emerald-500">FMCG Supply Chain</span> Together
+            </h2>
+            <p className="text-lg text-slate-300 leading-relaxed max-w-lg">
+              From farm to shelf, Afja delivers speed, scale, and quality. Whether you&apos;re a grocery chain seeking reliable stock replenishment or a global brand entering new markets — we are your distribution backbone.
+            </p>
+          </div>
+          <div className="lg:w-1/2 flex flex-col sm:flex-row gap-4 justify-end w-full">
+            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full font-bold text-base transition-all shadow-xl shadow-emerald-500/25 flex-1 sm:flex-none text-center">
+              Stock My Store
+            </button>
+            <button className="bg-transparent hover:bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-bold text-base transition-all flex-1 sm:flex-none text-center">
+              Distribute My Brand
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -581,27 +658,27 @@ export default function Home() {
       <Categories />
       <Stats />
       <WhyChooseUs />
-      
+
+      {/* About Us Section */}
       <section id="about" className="py-32 bg-slate-50 relative overflow-hidden">
-        {/* Decorative Background Elements */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-500/5 -skew-x-12 translate-x-1/4"></div>
         <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 skew-x-12 -translate-x-1/4"></div>
-        
+
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-col lg:flex-row items-center gap-20">
-            {/* Content Side */}
             <div className="lg:w-1/2">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 leading-[1.15] mb-8 tracking-tight">
-                Decades of <span className="text-emerald-500">Excellence</span> <br className="hidden sm:block" />
+                Decades of <span className="text-emerald-500">Excellence</span>{' '}
+                <br className="hidden sm:block" />
                 in Global Distribution.
               </h2>
 
-              {/* Mobile Image: Visible only on mobile, placed between heading and paragraph */}
-              <div className="lg:hidden w-full relative mb-10">
+              {/* Mobile Image */}
+              <div className="lg:hidden w-full relative mb-10 group">
                 <div className="w-full relative z-10 rounded-xl overflow-hidden shadow-2xl aspect-[4/3]">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=1200" 
-                    alt="Our State-of-the-Art Warehouse" 
+                  <Image
+                    src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=1200"
+                    alt="Our State-of-the-Art Warehouse"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-110"
                     referrerPolicy="no-referrer"
@@ -609,11 +686,11 @@ export default function Home() {
                   <div className="absolute inset-0 bg-emerald-900/10 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-0"></div>
                 </div>
               </div>
-              
+
               <p className="text-base md:text-lg text-slate-600 mb-8 leading-relaxed max-w-xl">
-                Founded with a vision to streamline the supply chain for essential goods, Afja has grown into a regional powerhouse. We don't just move products; we build lasting bridges between world-class brands and the communities they serve.
+                Founded with a vision to streamline the supply chain for essential goods, Afja has grown into a regional powerhouse. We don&apos;t just move products; we build lasting bridges between world-class brands and the communities they serve.
               </p>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
@@ -644,18 +721,18 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              
-              <button className="bg-slate-900 hover:bg-slate-800 text-white px-10 py-4.5 rounded-full font-bold text-base transition-all shadow-xl shadow-slate-900/10">
+
+              <button className="bg-slate-900 hover:bg-slate-800 text-white px-10 py-4 rounded-full font-bold text-base transition-all shadow-xl shadow-slate-900/10">
                 Read Full Story
               </button>
             </div>
 
-            {/* Desktop Image Side: Hidden on mobile */}
+            {/* Desktop Image Side */}
             <div className="hidden lg:block lg:w-1/2 relative group">
               <div className="w-full relative z-10 rounded-xl overflow-hidden shadow-2xl aspect-[4/3]">
-                <Image 
-                  src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Our State-of-the-Art Warehouse" 
+                <Image
+                  src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=1200"
+                  alt="Our State-of-the-Art Warehouse"
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   referrerPolicy="no-referrer"
@@ -667,6 +744,8 @@ export default function Home() {
         </div>
       </section>
 
+      <Testimonials />
+      <PartnerCTA />
       <Footer />
     </main>
   );
