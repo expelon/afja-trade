@@ -17,7 +17,11 @@ import {
   ArrowRight,
   Leaf,
   Coffee,
-  Sparkles
+  Sparkles,
+  Package,
+  Boxes,
+  Microscope,
+  Award
 } from 'lucide-react';
 
 // --- Components ---
@@ -187,32 +191,43 @@ const Hero = () => {
   );
 };
 
-const CategoryCard = ({ icon: Icon, title, description, image, color }: any) => (
+const CategoryCard = ({ icon: Icon, title, description, image }: any) => (
   <motion.div 
     whileHover={{ y: -10 }}
-    className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100"
+    className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-slate-100/80 flex flex-col h-full"
   >
-    <div className="h-48 overflow-hidden relative">
+    <div className="h-64 overflow-hidden relative">
       <Image 
         src={image} 
         alt={title} 
         fill
-        className="object-cover group-hover:scale-110 transition-transform duration-500"
+        className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
         referrerPolicy="no-referrer"
       />
-      <div className={`absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`}></div>
-    </div>
-    <div className="p-8">
-      <div className={`${color} w-12 h-12 rounded-2xl flex items-center justify-center mb-6 shadow-lg`}>
-        <Icon className="text-white w-6 h-6" />
+      <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      
+      {/* Category Icon Badge */}
+      <div className="absolute top-6 left-6 z-10">
+        <div className="bg-white/95 backdrop-blur-md w-14 h-14 rounded-xl flex items-center justify-center shadow-xl border border-white/20 group-hover:bg-emerald-600 transition-colors duration-300">
+          <Icon className="text-emerald-600 w-7 h-7 group-hover:text-white transition-colors duration-300" />
+        </div>
       </div>
-      <h3 className="text-xl font-bold text-slate-900 mb-3">{title}</h3>
-      <p className="text-slate-600 text-sm leading-relaxed mb-6">
+    </div>
+    
+    <div className="p-10 flex flex-col flex-grow">
+      <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight group-hover:text-emerald-600 transition-colors">{title}</h3>
+      <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">
         {description}
       </p>
-      <a href="#" className="text-emerald-600 font-bold text-sm flex items-center gap-1 group/link">
-        View Catalog <ChevronRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-      </a>
+      
+      <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
+        <a href="#" className="text-emerald-600 font-bold text-sm flex items-center gap-2 group/link">
+          Explore Catalog 
+          <span className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center group-hover/link:bg-emerald-600 group-hover/link:text-white transition-all">
+            <ChevronRight className="w-4 h-4" />
+          </span>
+        </a>
+      </div>
     </div>
   </motion.div>
 );
@@ -222,36 +237,44 @@ const Categories = () => {
     {
       icon: Leaf,
       title: "Fresh Produce",
-      description: "Sourcing the finest organic fruits and vegetables directly from local farms to ensure peak freshness.",
-      image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&q=80&w=800",
-      color: "bg-emerald-500"
+      description: "Our direct partnerships with farms ensure that only the most vibrant and nutritious fruits and vegetables reach your shelves daily.",
+      image: "https://images.unsplash.com/photo-1610348725531-843dff563e2c?auto=format&fit=crop&q=80&w=800"
     },
     {
-      icon: Coffee,
-      title: "Pantry Staples",
-      description: "Premium grains, oils, and packaged goods from world-renowned brands that every household trusts.",
-      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800",
-      color: "bg-amber-500"
+      icon: Boxes,
+      title: "Pantry Essentials",
+      description: "A curated selection of premium grains, oils, and dry goods from trusted global brands, maintaining consistently high standards.",
+      image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800"
     },
     {
-      icon: Sparkles,
-      title: "Home & Personal Care",
-      description: "Essential hygiene and cleaning products designed to keep your living spaces safe and sparkling.",
-      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800",
-      color: "bg-blue-500"
+      icon: ShieldCheck,
+      title: "Home & Hygiene",
+      description: "Setting the standard for safety and cleanliness with a portfolio of essential personal care and household cleaning solutions.",
+      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800"
     }
   ];
 
   return (
-    <section id="products" className="py-24 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-emerald-600 font-bold text-sm uppercase tracking-widest mb-4">Our Portfolio</h2>
-          <p className="text-4xl font-bold text-slate-900 mb-6">Diverse Range of Daily Essentials</p>
-          <p className="text-slate-600">We manage a comprehensive supply chain for a wide variety of FMCG categories, ensuring availability and quality.</p>
+    <section id="products" className="py-32 bg-white relative overflow-hidden">
+      {/* Subtle Background Pattern */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:40px_40px]"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
+          <div className="max-w-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tight leading-[1.15]">
+              Premium Range of <br />
+              <span className="text-emerald-600">Daily Essentials.</span>
+            </h2>
+          </div>
+          <p className="text-slate-600 max-w-sm md:text-right pb-2">
+            We bridge the gap between world-class manufacturers and local retailers through a seamless, tech-enabled supply chain.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-10">
           {categories.map((cat, idx) => (
             <CategoryCard key={idx} {...cat} />
           ))}
@@ -292,7 +315,7 @@ const Contact = () => {
   return (
     <section id="contact" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="bg-slate-900 rounded-[3rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
+        <div className="bg-slate-900 rounded-[2rem] overflow-hidden shadow-2xl flex flex-col md:flex-row">
           <div className="md:w-1/2 p-12 md:p-20">
             <h2 className="text-4xl font-bold text-white mb-8">Ready to grow your business with us?</h2>
             <p className="text-slate-400 mb-12 leading-relaxed">
@@ -439,7 +462,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center gap-20">
             {/* Image Side */}
             <div className="lg:w-1/2 relative group">
-              <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/3]">
+              <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl aspect-[4/3]">
                 <Image 
                   src="https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&q=80&w=1200" 
                   alt="Our State-of-the-Art Warehouse" 
@@ -455,7 +478,7 @@ export default function Home() {
                 <div className="bg-emerald-500 p-3 rounded-2xl w-fit mb-4 shadow-lg shadow-emerald-500/20">
                   <ShieldCheck className="text-white w-6 h-6" />
                 </div>
-                <p className="text-2xl font-black text-slate-900 mb-1">20+ Years</p>
+                <p className="text-2xl font-bold text-slate-900 mb-1">20+ Years</p>
                 <p className="text-[10px] text-emerald-600 font-bold uppercase tracking-widest">Industry Leadership</p>
               </div>
               
@@ -470,7 +493,7 @@ export default function Home() {
                 Our Heritage
               </div>
               
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-[1.15] mb-8 tracking-tight">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 leading-[1.15] mb-8 tracking-tight">
                 Decades of <span className="text-emerald-500">Excellence</span> <br />
                 in Global Distribution.
               </h2>
