@@ -36,95 +36,7 @@ import {
 
 // --- Components ---
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > window.innerHeight * 0.8);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Products', href: '#products' },
-    { name: 'About Us', href: '#about' },
-    { name: 'Distribution', href: '#distribution' },
-  ];
-
-  return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white py-3' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 items-center">
-        {/* Left: Brand Name */}
-        <div className="flex justify-start">
-          <span className={`text-xl font-bold tracking-tight transition-colors duration-300 ${isScrolled ? 'text-slate-900' : 'text-white'}`}>
-            Afja General Trading
-          </span>
-        </div>
-
-        {/* Center: Desktop Nav */}
-        <div className="hidden md:flex justify-center items-center gap-8">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              className={`text-sm font-semibold transition-all duration-300 hover:text-emerald-500 whitespace-nowrap ${isScrolled ? 'text-slate-600' : 'text-white/90'}`}
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
-
-        {/* Right: CTA & Mobile Toggle */}
-        <div className="flex justify-end items-center gap-4">
-          <button className="hidden md:block bg-emerald-600 hover:bg-emerald-700 text-white px-7 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-emerald-600/20 active:scale-95">
-            Contact
-          </button>
-
-          <button 
-            className="md:hidden p-2 transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className={isScrolled ? 'text-slate-900' : 'text-white'} />
-            ) : (
-              <Menu className={isScrolled ? 'text-slate-900' : 'text-white'} />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-white shadow-2xl py-8 px-6 flex flex-col gap-5 md:hidden"
-          >
-            {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href}
-                className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </a>
-            ))}
-            <button className="bg-emerald-600 text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-emerald-600/20 mt-2">
-              Contact
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </nav>
-  );
-};
+// Navbar and Footer are now shared in layout.tsx
 
 const Hero = () => {
   const [currentBg, setCurrentBg] = useState(0);
@@ -517,64 +429,6 @@ const Stats = () => {
   );
 };
 
-const Footer = () => {
-  return (
-    <footer className="bg-slate-50 pt-20 pb-10 border-t border-slate-200">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid md:grid-cols-4 gap-12 mb-16">
-          <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="bg-emerald-600 p-2 rounded-lg">
-                <ShoppingBasket className="text-white w-5 h-5" />
-              </div>
-              <span className="text-xl font-bold text-slate-900 tracking-tight">
-                Afja General Trading
-              </span>
-            </div>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Leading the way in FMCG distribution with a commitment to quality, reliability, and sustainable growth for our partners.
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="text-slate-900 font-bold mb-6">Quick Links</h4>
-            <ul className="space-y-4">
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">About Us</a></li>
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">Our Products</a></li>
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">Distribution Network</a></li>
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">Careers</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-slate-900 font-bold mb-6">Support</h4>
-            <ul className="space-y-4">
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">Contact Support</a></li>
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="text-slate-500 hover:text-emerald-600 text-sm transition-colors">Partner Portal</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-slate-900 font-bold mb-6">Newsletter</h4>
-            <p className="text-slate-500 text-sm mb-4">Stay updated with our latest products and news.</p>
-            <div className="flex gap-2">
-              <input type="email" placeholder="Email" className="bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-emerald-500 w-full" />
-              <button className="bg-emerald-600 text-white p-2 rounded-lg hover:bg-emerald-700 transition-colors">
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-400 text-xs">© 2026 Afja FMCG Distribution. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
-};
 
 // --- New Sections ---
 
@@ -682,7 +536,6 @@ const PartnerCTA = () => {
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <Navbar />
       <Hero />
       <Brands />
       <Categories />
@@ -776,7 +629,6 @@ export default function Home() {
 
       <Testimonials />
       <PartnerCTA />
-      <Footer />
     </main>
   );
 }
