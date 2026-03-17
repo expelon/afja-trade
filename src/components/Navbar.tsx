@@ -27,19 +27,24 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Products', href: '/#products' },
-    { name: 'About Us', href: '/#about' },
+    { name: 'About Us', href: '/about' },
     { name: 'Distribution', href: '/#distribution' },
   ];
 
-  // Force scrolled state (visible) if not on home page
-  const showSolidNav = isScrolled || !isHome;
+  // Force scrolled state (visible) if not on home or about page (since contact is light)
+  const isAbout = pathname === '/about';
+  const showSolidNav = isScrolled || (!isHome && !isAbout);
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${showSolidNav ? 'bg-white/80 backdrop-blur-md py-3 shadow-sm' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-3 items-center">
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-[minmax(0,1fr)_auto] md:grid-cols-3 items-center">
         {/* Left: Brand Name */}
-        <div className="flex justify-start">
-          <Link href="/" className={`text-xl font-bold tracking-tight transition-colors duration-300 ${showSolidNav ? 'text-slate-900' : 'text-white'}`}>
+        <div className="flex justify-start min-w-0">
+          <Link
+            href="/"
+            className={`min-w-0 text-base sm:text-xl font-bold tracking-tight leading-snug transition-colors duration-300 ${showSolidNav ? 'text-slate-900' : 'text-white'}`}
+            aria-label="Afja General Trading"
+          >
             Afja General Trading
           </Link>
         </div>
