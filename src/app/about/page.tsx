@@ -78,7 +78,7 @@ const AboutPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-7xl font-black text-white leading-tight mb-6">
+            <h1 className="text-3xl md:text-7xl font-black text-white leading-tight mb-6">
               Empowering the <br />
               <span className="text-emerald-500">Global Supply Chain.</span>
             </h1>
@@ -99,7 +99,7 @@ const AboutPage = () => {
               viewport={{ once: true }}
               className="lg:w-1/2"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-8 leading-[1.15]">
+              <h2 className="text-2xl md:text-5xl font-bold text-slate-900 mb-8 leading-[1.15]">
                 A Decade of <span className="text-emerald-500">Unyielding Commitment</span> to Quality.
               </h2>
               <p className="text-lg text-slate-600 mb-6 leading-relaxed">
@@ -263,12 +263,12 @@ const AboutPage = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-emerald-600 rounded-[3rem] p-12 md:p-20 text-center text-white shadow-2xl shadow-emerald-600/20 relative overflow-hidden"
+            className="bg-emerald-600 rounded-3xl p-8 md:p-20 text-center text-white shadow-2xl shadow-emerald-600/20 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-400/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
             
-            <h2 className="text-3xl md:text-5xl font-bold mb-8 relative z-10 leading-tight">
+            <h2 className="text-2xl md:text-5xl font-bold mb-8 relative z-10 leading-tight">
               Ready to Partner with <br /> 
               the Best in the Industry?
             </h2>
@@ -277,7 +277,7 @@ const AboutPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
               <Link href="/contact">
-                <button className="bg-white text-emerald-600 px-10 py-5 rounded-full font-extrabold text-lg hover:shadow-2xl transition-all shadow-xl active:scale-95 group flex items-center gap-2">
+                <button className="bg-white text-emerald-600 px-6 py-4 md:px-10 md:py-5 rounded-full font-extrabold text-base md:text-lg hover:shadow-2xl transition-all shadow-xl active:scale-95 group flex items-center justify-center gap-2 w-full sm:w-auto">
                   Get Started Now <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
