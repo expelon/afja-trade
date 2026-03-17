@@ -1,6 +1,7 @@
 "use client";
 
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
@@ -188,14 +189,7 @@ const CategoryCard = ({ icon: Icon, title, description, image }: any) => (
       <h3 className="text-2xl font-bold text-slate-900 mb-4 tracking-tight group-hover:text-emerald-600 transition-colors">{title}</h3>
       <p className="text-slate-600 text-sm leading-relaxed mb-8 flex-grow">{description}</p>
       
-      <div className="pt-6 border-t border-slate-50 flex items-center justify-between">
-        <a href="#" className="text-emerald-600 font-bold text-sm flex items-center gap-2 group/link">
-          Explore Catalog 
-          <span className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center group-hover/link:bg-emerald-600 group-hover/link:text-white transition-all">
-            <ChevronRight className="w-4 h-4" />
-          </span>
-        </a>
-      </div>
+
     </div>
   </motion.div>
 );
@@ -605,9 +599,11 @@ export default function Home() {
                 </div>
               </div>
 
-              <button className="bg-slate-900 hover:bg-slate-800 text-white px-10 py-4 rounded-full font-bold text-base transition-all shadow-xl shadow-slate-900/10">
-                Read Full Story
-              </button>
+              <Link href="/about">
+                <button className="bg-slate-900 hover:bg-slate-800 text-white px-10 py-4 rounded-full font-bold text-base transition-all shadow-xl shadow-slate-900/10">
+                  Read Full Story
+                </button>
+              </Link>
             </div>
 
             {/* Desktop Image Side */}
