@@ -101,9 +101,11 @@ const Hero = () => {
             Afja is a premier FMCG distribution leader, bridging the gap between global brands and local consumers with efficiency, integrity, and excellence.
           </p>
           <div className="flex justify-center">
-            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-full font-bold text-base transition-all flex items-center gap-2 shadow-xl shadow-emerald-500/25 group">
-              Explore Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
+            <Link href="/contact">
+              <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 py-4 rounded-full font-bold text-base transition-all flex items-center gap-2 shadow-xl shadow-emerald-500/25 group">
+                Explore Products <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </Link>
           </div>
         </motion.div>
       </div>
@@ -512,12 +514,16 @@ const PartnerCTA = () => {
             </p>
           </div>
           <div className="lg:w-1/2 flex flex-col sm:flex-row gap-4 justify-end w-full">
-            <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full font-bold text-base transition-all shadow-xl shadow-emerald-500/25 flex-1 sm:flex-none text-center">
-              Stock My Store
-            </button>
-            <button className="bg-transparent hover:bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-bold text-base transition-all flex-1 sm:flex-none text-center">
-              Distribute My Brand
-            </button>
+            <Link href="/contact" className="flex-1 sm:flex-none">
+              <button className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-full font-bold text-base transition-all shadow-xl shadow-emerald-500/25 w-full text-center">
+                Become a Partner
+              </button>
+            </Link>
+            <Link href="/contact" className="flex-1 sm:flex-none">
+              <button className="bg-transparent hover:bg-white/10 text-white border border-white/20 px-8 py-4 rounded-full font-bold text-base transition-all w-full text-center">
+                Talk to Sales Team
+              </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -599,7 +605,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <Link href="/about">
+              <Link href="/contact">
                 <button className="bg-slate-900 hover:bg-slate-800 text-white px-10 py-4 rounded-full font-bold text-base transition-all shadow-xl shadow-slate-900/10">
                   Read Full Story
                 </button>
