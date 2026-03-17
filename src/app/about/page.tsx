@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'motion/react';
 import { 
   Target, 
@@ -51,7 +52,7 @@ const AboutPage = () => {
   const milestones = [
     { year: "2015", event: "Afja General Trading founded with a vision for FMCG excellence." },
     { year: "2018", event: "Expanded our distribution network to cover over 50 cities." },
-    { year: "2021", event: "Achieved ISO 9001:2015 certification for quality management." },
+    { year: "2021", event: "Ranked as one of the fastest growing FMCG companies in the UAE." },
     { year: "2024", event: "Became the regional partner for 30+ global FMCG leaders." },
     { year: "2026", event: "Delivering quality to over 15,000 retail accounts daily." }
   ];
@@ -59,7 +60,7 @@ const AboutPage = () => {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden bg-slate-900">
+      <section className="relative h-[100vh] flex items-center justify-center overflow-hidden bg-slate-900">
         <div className="absolute inset-0">
           <Image 
             src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1920" 
@@ -68,7 +69,7 @@ const AboutPage = () => {
             className="object-cover opacity-60 grayscale"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/20 to-white"></div>
+          <div className="absolute inset-0 bg-slate-900/70"></div>
         </div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
@@ -77,9 +78,6 @@ const AboutPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block py-1.5 px-4 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-widest mb-6 border border-emerald-400/20">
-              Our Journey & Legacy
-            </span>
             <h1 className="text-4xl md:text-7xl font-black text-white leading-tight mb-6">
               Empowering the <br />
               <span className="text-emerald-500">Global Supply Chain.</span>
@@ -142,11 +140,11 @@ const AboutPage = () => {
               <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl border border-slate-100 hidden md:block">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white">
-                    <Award className="w-6 h-6" />
+                    <TrendingUp className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Certified</p>
-                    <p className="text-xl font-bold text-slate-900">ISO 9001:2015</p>
+                    <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">Growth</p>
+                    <p className="text-xl font-bold text-slate-900">100% Reliability</p>
                   </div>
                 </div>
               </div>
@@ -278,12 +276,11 @@ const AboutPage = () => {
               Whether you're a manufacturer looking for world-class distribution or a retailer seeking consistent supply, Afja is your backbone for success.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
-              <button className="bg-white text-emerald-600 px-10 py-5 rounded-full font-extrabold text-lg hover:shadow-2xl transition-all shadow-xl active:scale-95 group flex items-center gap-2">
-                Get Started Now <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="bg-transparent border border-white/30 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-white/10 transition-all">
-                Download Profile
-              </button>
+              <Link href="/contact">
+                <button className="bg-white text-emerald-600 px-10 py-5 rounded-full font-extrabold text-lg hover:shadow-2xl transition-all shadow-xl active:scale-95 group flex items-center gap-2">
+                  Get Started Now <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Link>
             </div>
           </motion.div>
         </div>

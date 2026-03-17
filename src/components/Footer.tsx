@@ -13,10 +13,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="col-span-1 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="bg-emerald-600 p-2 rounded-lg">
-                <ShoppingBasket className="text-white w-5 h-5" />
-              </div>
+            <Link href="/" className="inline-block mb-6">
               <span className="text-xl font-bold text-slate-900 tracking-tight">
                 Afja General Trading
               </span>
